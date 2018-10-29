@@ -8,7 +8,33 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Margin" Value="10,0,20,20"/>
+            <Setter Property="FontSize"  Value="20"/>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,10,0,0"/>
+            <Setter Property="FontSize"  Value="30"/>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
-
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Connection String:" Style="{StaticResource LabelStyle}"/>
+            <TextBox Text="{Binding Mode=TwoWay,Path=ConnectionString}" Style="{StaticResource TextBoxStyle}" />
+            <TextBlock Text="Remote Share:" Style="{StaticResource LabelStyle}"/>
+            <TextBox Text="{Binding Mode=TwoWay,Path=RemoteShareName}" Style="{StaticResource TextBoxStyle}"/>
+            <TextBlock Text="Local File:" Style="{StaticResource LabelStyle}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Pick" Margin="10,-20,0,0" Command="{Binding SelectFileToUpload}" />
+                <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding Mode=OneWay,Path=FileToUploadName}" Style="{StaticResource TextBoxStyle}"/>
+            </Grid>
+            <Button Content="Upload!" Margin="10,20,0,0" Command="{Binding UploadFile}"/>
+        </StackPanel>
     </Grid>
 </Page>
